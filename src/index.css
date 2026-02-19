@@ -2,95 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&family=Orbitron:wght@400;600;700;800;900&display=swap');
+
+/* MotoGP Porra 2025 - Dark Racing Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark racing theme */
+    --background: 220 15% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 11%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 11%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* MotoGP Red */
+    --primary: 4 90% 52%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 0 0% 85%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 12% 18%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Racing Yellow */
+    --accent: 43 96% 56%;
+    --accent-foreground: 220 15% 8%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 12% 20%;
+    --input: 220 12% 20%;
+    --ring: 4 90% 52%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom tokens */
+    --racing-red: 4 90% 52%;
+    --racing-yellow: 43 96% 56%;
+    --racing-dark: 220 15% 8%;
+    --racing-surface: 220 15% 11%;
+    --racing-surface-2: 220 15% 16%;
+    --racing-border: 220 12% 20%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --gradient-hero: linear-gradient(135deg, hsl(4, 90%, 52%), hsl(25, 95%, 50%));
+    --gradient-card: linear-gradient(145deg, hsl(220, 15%, 13%), hsl(220, 15%, 10%));
+    --gradient-accent: linear-gradient(135deg, hsl(43, 96%, 56%), hsl(35, 95%, 50%));
 
-    --sidebar-primary: 240 5.9% 10%;
+    --shadow-red: 0 0 20px hsl(4 90% 52% / 0.3);
+    --shadow-card: 0 4px 20px hsl(220 15% 4% / 0.5);
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 220 15% 8%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 4 90% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 220 12% 20%;
+    --sidebar-ring: 4 90% 52%;
   }
 }
 
@@ -101,5 +74,69 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Exo 2', sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif;
   }
 }
+
+@layer components {
+  .racing-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--racing-border));
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius);
+  }
+
+  .racing-badge-1 {
+    background: linear-gradient(135deg, hsl(43, 96%, 56%), hsl(35, 95%, 45%));
+    color: hsl(220, 15%, 8%);
+    font-weight: 800;
+  }
+
+  .racing-badge-2 {
+    background: linear-gradient(135deg, hsl(0, 0%, 80%), hsl(0, 0%, 65%));
+    color: hsl(220, 15%, 8%);
+    font-weight: 800;
+  }
+
+  .racing-badge-3 {
+    background: linear-gradient(135deg, hsl(25, 80%, 55%), hsl(25, 75%, 45%));
+    color: hsl(220, 15%, 8%);
+    font-weight: 800;
+  }
+
+  .tab-racing {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .red-line {
+    height: 3px;
+    background: var(--gradient-hero);
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 10px hsl(4 90% 52% / 0.4); }
+  50% { box-shadow: 0 0 25px hsl(4 90% 52% / 0.7); }
+}
+
+.animate-pulse-red {
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
