@@ -203,6 +203,142 @@ export const PARTICIPANT_COLORS: Record<string, string> = {
   "HONTZA":   "#94a3b8",
 };
 
+// Moto2 Pilots
+export const MOTO2_PILOTS = [
+  { number: 3, name: "Sergio GARCIA", team: "MT Helmets - MSI", country: "🇪🇸" },
+  { number: 4, name: "Ivan ORTOLA", team: "MT Helmets - MSI", country: "🇪🇸" },
+  { number: 7, name: "Barry BALTUS", team: "RW Racing GP", country: "🇧🇪" },
+  { number: 9, name: "Jorge NAVARRO", team: "QJMOTOR Gresini", country: "🇪🇸" },
+  { number: 10, name: "Diogo MOREIRA", team: "Italtrans Racing", country: "🇧🇷" },
+  { number: 13, name: "Celestino VIETTI", team: "Red Bull KTM Ajo", country: "🇮🇹" },
+  { number: 16, name: "Joe ROBERTS", team: "OnlyFans American Racing", country: "🇺🇸" },
+  { number: 18, name: "Manuel GONZALEZ", team: "QJMOTOR Gresini", country: "🇪🇸" },
+  { number: 21, name: "Alonso LOPEZ", team: "SpeedUp", country: "🇪🇸" },
+  { number: 24, name: "Marcos RAMIREZ", team: "OnlyFans American Racing", country: "🇪🇸" },
+  { number: 27, name: "Daniel HOLGADO", team: "Red Bull KTM Ajo", country: "🇪🇸" },
+  { number: 44, name: "Aron CANET", team: "Fantic Racing", country: "🇪🇸" },
+  { number: 53, name: "Deniz ONCU", team: "Red Bull KTM Ajo", country: "🇹🇷" },
+  { number: 75, name: "Albert ARENAS", team: "MT Helmets - MSI", country: "🇪🇸" },
+  { number: 80, name: "David ALONSO", team: "CFMOTO Aspar", country: "🇨🇴" },
+  { number: 95, name: "Collin VEIJER", team: "Liqui Moly Husqvarna Intact", country: "🇳🇱" },
+  { number: 96, name: "Jake DIXON", team: "CFMOTO Aspar", country: "🇬🇧" },
+  { number: 99, name: "Adrian HUERTAS", team: "Red Bull KTM Ajo", country: "🇪🇸" },
+];
+
+// Moto3 Pilots
+export const MOTO3_PILOTS = [
+  { number: 6, name: "Ryusei YAMANAKA", team: "MT Helmets - MSI", country: "🇯🇵" },
+  { number: 14, name: "Cormac BUCHANAN", team: "Leopard Racing", country: "🇳🇿" },
+  { number: 19, name: "Scott OGDEN", team: "Vision Track Racing", country: "🇬🇧" },
+  { number: 22, name: "David ALMANSA", team: "CFMOTO Aspar", country: "🇪🇸" },
+  { number: 24, name: "Tatsuki SUZUKI", team: "Leopard Racing", country: "🇯🇵" },
+  { number: 28, name: "Maximo QUILES", team: "Aspar", country: "🇪🇸" },
+  { number: 31, name: "Adrian FERNANDEZ", team: "Red Bull KTM Tech3", country: "🇪🇸" },
+  { number: 36, name: "Angel PIQUERAS", team: "Leopard Racing", country: "🇪🇸" },
+  { number: 58, name: "Luca LUNETTA", team: "SIC58 Squadra Corse", country: "🇮🇹" },
+  { number: 64, name: "David MUÑOZ", team: "BOE Motorsports", country: "🇪🇸" },
+  { number: 71, name: "Denis FOGGIA", team: "SIC58 Squadra Corse", country: "🇮🇹" },
+  { number: 72, name: "Taiyo FURUSATO", team: "Honda Team Asia", country: "🇯🇵" },
+  { number: 73, name: "Valentin PERRONE", team: "CFMOTO Aspar", country: "🇦🇷" },
+  { number: 82, name: "Stefano NEPA", team: "Angeluss MTA Team", country: "🇮🇹" },
+  { number: 83, name: "Alvaro CARPE", team: "Idemitsu Honda Team Asia", country: "🇪🇸" },
+  { number: 89, name: "Marcos URIARTE", team: "Finetwork MIR", country: "🇪🇸" },
+  { number: 99, name: "Jose Antonio RUEDA", team: "Red Bull KTM Ajo", country: "🇪🇸" },
+];
+
+// Participant teams: which pilots each participant selected per category
+export const PARTICIPANT_TEAMS: Record<string, {
+  motogp: { number: number; name: string; price: number }[];
+  moto2: { number: number; name: string; price: number }[];
+  moto3: { number: number; name: string; price: number }[];
+}> = {
+  "SORZA": {
+    motogp: [{ number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 21, name: "Alonso LOPEZ", price: 80 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 28, name: "Maximo QUILES", price: 10 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "HONTZA": {
+    motogp: [{ number: 20, name: "Fabio QUARTARARO", price: 80 }, { number: 21, name: "Franco MORBIDELLI", price: 100 }, { number: 37, name: "Pedro ACOSTA", price: 120 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 88, name: "Miguel OLIVEIRA", price: 10 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 3, name: "Sergio GARCIA", price: 50 }, { number: 75, name: "Albert ARENAS", price: 40 }, { number: 80, name: "David ALONSO", price: 10 }],
+    moto3: [{ number: 19, name: "Scott OGDEN", price: 30 }, { number: 24, name: "Tatsuki SUZUKI", price: 20 }, { number: 72, name: "Taiyo FURUSATO", price: 50 }],
+  },
+  "IKER": {
+    motogp: [{ number: 37, name: "Pedro ACOSTA", price: 120 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }],
+    moto2: [{ number: 3, name: "Sergio GARCIA", price: 50 }, { number: 7, name: "Barry BALTUS", price: 40 }, { number: 27, name: "Daniel HOLGADO", price: 20 }, { number: 44, name: "Aron CANET", price: 100 }, { number: 80, name: "David ALONSO", price: 10 }],
+    moto3: [{ number: 31, name: "Adrian FERNANDEZ", price: 70 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 72, name: "Taiyo FURUSATO", price: 50 }, { number: 89, name: "Marcos URIARTE", price: 10 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "ZIKINA": {
+    motogp: [{ number: 49, name: "Fabio DI GIANNANTONIO", price: 50 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 7, name: "Barry BALTUS", price: 40 }, { number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 27, name: "Daniel HOLGADO", price: 20 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 6, name: "Ryusei YAMANAKA", price: 60 }, { number: 31, name: "Adrian FERNANDEZ", price: 70 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "HARRAPATU": {
+    motogp: [{ number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 24, name: "Tatsuki SUZUKI", price: 20 }, { number: 28, name: "Maximo QUILES", price: 10 }, { number: 31, name: "Adrian FERNANDEZ", price: 70 }, { number: 71, name: "Denis FOGGIA", price: 20 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "PETAS": {
+    motogp: [{ number: 54, name: "Fermin ALDEGUER", price: 20 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 44, name: "Aron CANET", price: 100 }, { number: 53, name: "Deniz ONCU", price: 40 }, { number: 80, name: "David ALONSO", price: 10 }],
+    moto3: [{ number: 14, name: "Cormac BUCHANAN", price: 10 }, { number: 28, name: "Maximo QUILES", price: 10 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }, { number: 71, name: "Denis FOGGIA", price: 20 }],
+  },
+  "PANPA": {
+    motogp: [{ number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 79, name: "Ai OGURA", price: 40 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 7, name: "Barry BALTUS", price: 40 }, { number: 16, name: "Joe ROBERTS", price: 30 }, { number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 19, name: "Scott OGDEN", price: 30 }, { number: 58, name: "Luca LUNETTA", price: 30 }, { number: 82, name: "Stefano NEPA", price: 10 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "BERIS": {
+    motogp: [{ number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 9, name: "Jorge NAVARRO", price: 10 }, { number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 21, name: "Alonso LOPEZ", price: 80 }, { number: 95, name: "Collin VEIJER", price: 10 }],
+    moto3: [{ number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "DAVID KTM": {
+    motogp: [{ number: 12, name: "Maverick VIÑALES", price: 40 }, { number: 23, name: "Enea BASTIANINI", price: 80 }, { number: 25, name: "Raul FERNANDEZ", price: 20 }, { number: 33, name: "Brad BINDER", price: 90 }, { number: 37, name: "Pedro ACOSTA", price: 120 }, { number: 43, name: "Jack MILLER", price: 40 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 27, name: "Daniel HOLGADO", price: 20 }, { number: 53, name: "Deniz ONCU", price: 40 }, { number: 95, name: "Collin VEIJER", price: 10 }],
+    moto3: [{ number: 73, name: "Valentin PERRONE", price: 10 }, { number: 83, name: "Alvaro CARPE", price: 50 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "MONTXO": {
+    motogp: [{ number: 21, name: "Franco MORBIDELLI", price: 100 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 3, name: "Sergio GARCIA", price: 50 }, { number: 13, name: "Celestino VIETTI", price: 50 }, { number: 96, name: "Jake DIXON", price: 60 }],
+    moto3: [{ number: 22, name: "David ALMANSA", price: 30 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 71, name: "Denis FOGGIA", price: 20 }],
+  },
+  "TUONO": {
+    motogp: [{ number: 20, name: "Fabio QUARTARARO", price: 80 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 44, name: "Aron CANET", price: 100 }, { number: 53, name: "Deniz ONCU", price: 40 }],
+    moto3: [{ number: 31, name: "Adrian FERNANDEZ", price: 70 }, { number: 83, name: "Alvaro CARPE", price: 50 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "DANI IRUN": {
+    motogp: [{ number: 20, name: "Fabio QUARTARARO", price: 80 }, { number: 36, name: "Joan MIR", price: 50 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 7, name: "Barry BALTUS", price: 40 }, { number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 27, name: "Daniel HOLGADO", price: 20 }, { number: 53, name: "Deniz ONCU", price: 40 }, { number: 80, name: "David ALONSO", price: 10 }],
+    moto3: [{ number: 28, name: "Maximo QUILES", price: 10 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }, { number: 83, name: "Alvaro CARPE", price: 50 }],
+  },
+  "BIRI": {
+    motogp: [{ number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 16, name: "Joe ROBERTS", price: 30 }, { number: 24, name: "Marcos RAMIREZ", price: 40 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 31, name: "Adrian FERNANDEZ", price: 70 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 71, name: "Denis FOGGIA", price: 20 }, { number: 99, name: "Jose Antonio RUEDA", price: 80 }],
+  },
+  "MANEX": {
+    motogp: [{ number: 49, name: "Fabio DI GIANNANTONIO", price: 50 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 73, name: "Alex MARQUEZ", price: 90 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 21, name: "Alonso LOPEZ", price: 80 }, { number: 96, name: "Jake DIXON", price: 60 }],
+    moto3: [{ number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }, { number: 71, name: "Denis FOGGIA", price: 20 }],
+  },
+  "MAPATXE": {
+    motogp: [{ number: 5, name: "Johann ZARCO", price: 50 }, { number: 25, name: "Raul FERNANDEZ", price: 20 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 88, name: "Miguel OLIVEIRA", price: 10 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 9, name: "Jorge NAVARRO", price: 10 }, { number: 44, name: "Aron CANET", price: 100 }, { number: 53, name: "Deniz ONCU", price: 40 }, { number: 80, name: "David ALONSO", price: 10 }, { number: 96, name: "Jake DIXON", price: 60 }, { number: 99, name: "Adrian HUERTAS", price: 50 }],
+    moto3: [{ number: 22, name: "David ALMANSA", price: 30 }, { number: 71, name: "Denis FOGGIA", price: 20 }, { number: 83, name: "Alvaro CARPE", price: 50 }],
+  },
+  "AKULU": {
+    motogp: [{ number: 12, name: "Maverick VIÑALES", price: 40 }, { number: 37, name: "Pedro ACOSTA", price: 120 }, { number: 49, name: "Fabio DI GIANNANTONIO", price: 50 }, { number: 54, name: "Fermin ALDEGUER", price: 20 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 4, name: "Ivan ORTOLA", price: 10 }, { number: 7, name: "Barry BALTUS", price: 40 }, { number: 75, name: "Albert ARENAS", price: 40 }, { number: 80, name: "David ALONSO", price: 10 }],
+    moto3: [{ number: 19, name: "Scott OGDEN", price: 30 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 64, name: "David MUÑOZ", price: 40 }],
+  },
+  "OIER": {
+    motogp: [{ number: 49, name: "Fabio DI GIANNANTONIO", price: 50 }, { number: 63, name: "Francesco BAGNAIA", price: 150 }, { number: 93, name: "Marc MARQUEZ", price: 150 }],
+    moto2: [{ number: 10, name: "Diogo MOREIRA", price: 60 }, { number: 18, name: "Manuel GONZALEZ", price: 90 }, { number: 44, name: "Aron CANET", price: 100 }],
+    moto3: [{ number: 6, name: "Ryusei YAMANAKA", price: 60 }, { number: 28, name: "Maximo QUILES", price: 10 }, { number: 36, name: "Angel PIQUERAS", price: 50 }, { number: 58, name: "Luca LUNETTA", price: 30 }],
+  },
+};
+
 export const TEAMS = [
   { name: "Ducati Lenovo Team", pilots: ["Francesco BAGNAIA"], bike: "Ducati Desmosedici GP25", color: "#cc0000" },
   { name: "Gresini Racing", pilots: ["Alex MARQUEZ", "Fermin ALDEGUER"], bike: "Ducati Desmosedici GP24", color: "#0066cc" },
