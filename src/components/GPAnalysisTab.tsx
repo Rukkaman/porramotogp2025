@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { BarChart2, ChevronDown } from "lucide-react";
 import {
   BarChart,
@@ -10,23 +10,20 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import {
-  GRAND_PRIX,
-  PARTICIPANT_GP_SCORES,
-  PARTICIPANT_COLORS,
-  GP_WINNERS,
-} from "@/data/motogpData";
-
-const participants = Object.keys(PARTICIPANT_GP_SCORES);
+import { useMotogpData } from "@/contexts/DataContext";
 
 export default function GPAnalysisTab() {
+  const { GRAND_PRIX, PARTICIPANT_GP_SCORES, PARTICIPANT_COLORS, GP_WINNERS } = useMotogpData();
+
   const [selectedGP, setSelectedGP] = useState(1);
+
+  const participants = useMemo(() => Object.keys(PARTICIPANT_GP_SCORES), [PARTICIPANT_GP_SCORES]);
 
   const gpData = participants
     .map((p) => ({
       name: p,
       puntos: PARTICIPANT_GP_SCORES[p]?.[selectedGP - 1] || 0,
-      fill: PARTICIPANT_COLORS[p],
+      fill: PARTICIPANT_COLORS[p] || "#666",
     }))
     .sort((a, b) => b.puntos - a.puntos);
 
@@ -40,7 +37,6 @@ export default function GPAnalysisTab() {
         <h2 className="text-xl font-bold text-foreground tracking-wider">ANÁLISIS POR GP</h2>
       </div>
 
-      {/* GP Selector */}
       <div className="racing-card p-4">
         <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2 block">
           Selecciona Gran Premio
@@ -61,7 +57,6 @@ export default function GPAnalysisTab() {
         </div>
       </div>
 
-      {/* GP Info */}
       {gp && (
         <div className="racing-card p-4 flex flex-col sm:flex-row justify-between gap-4">
           <div>
@@ -73,10 +68,7 @@ export default function GPAnalysisTab() {
           {winner && (
             <div className="bg-accent/10 border border-accent/30 rounded-xl p-4 text-center min-w-[150px]">
               <div className="text-xs font-bold uppercase tracking-widest text-accent mb-1">🏆 Ganador GP</div>
-              <div
-                className="text-xl font-black tracking-wide"
-                style={{ color: PARTICIPANT_COLORS[winner.winner] }}
-              >
+              <div className="text-xl font-black tracking-wide" style={{ color: PARTICIPANT_COLORS[winner.winner] || "#666" }}>
                 {winner.winner}
               </div>
               <div className="text-2xl font-black text-accent mt-1">{winner.score} pts</div>
@@ -85,30 +77,14 @@ export default function GPAnalysisTab() {
         </div>
       )}
 
-      {/* Bar chart for the selected GP */}
       <div className="racing-card p-5">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">
-          Puntos por participante
-        </h3>
+        <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Puntos por participante</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={gpData} layout="vertical" margin={{ top: 5, right: 20, left: 70, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
             <XAxis type="number" tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }} />
-            <YAxis
-              type="category"
-              dataKey="name"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }}
-              width={65}
-            />
-            <Tooltip
-              contentStyle={{
-                background: "hsl(var(--card))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: 8,
-              }}
-              labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }}
-              itemStyle={{ color: "hsl(var(--accent))" }}
-            />
+            <YAxis type="category" dataKey="name" tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }} width={65} />
+            <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8 }} labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }} itemStyle={{ color: "hsl(var(--accent))" }} />
             <Bar dataKey="puntos" name="Puntos" radius={[0, 4, 4, 0]}>
               {gpData.map((entry, index) => (
                 <Cell key={index} fill={entry.fill} />
@@ -118,7 +94,6 @@ export default function GPAnalysisTab() {
         </ResponsiveContainer>
       </div>
 
-      {/* Podium */}
       <div className="racing-card p-5">
         <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Podio del GP</h3>
         <div className="flex flex-col sm:flex-row gap-3">

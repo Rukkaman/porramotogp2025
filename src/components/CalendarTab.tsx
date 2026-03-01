@@ -1,7 +1,9 @@
 import { Calendar, MapPin, Trophy, CheckCircle, Clock } from "lucide-react";
-import { GRAND_PRIX, GP_WINNERS, PARTICIPANT_COLORS } from "@/data/motogpData";
+import { useMotogpData } from "@/contexts/DataContext";
 
 export default function CalendarTab() {
+  const { GRAND_PRIX, GP_WINNERS, PARTICIPANT_COLORS } = useMotogpData();
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 mb-2">
@@ -43,22 +45,14 @@ export default function CalendarTab() {
                 </div>
               </div>
               {winner && (
-                <div
-                  className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between"
-                >
+                <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Trophy className="w-3.5 h-3.5 text-accent" />
                     <span className="text-xs text-muted-foreground">Ganador GP</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ background: PARTICIPANT_COLORS[winner.winner] }}
-                    />
-                    <span
-                      className="text-xs font-black tracking-wider"
-                      style={{ color: PARTICIPANT_COLORS[winner.winner] }}
-                    >
+                    <span className="w-2 h-2 rounded-full" style={{ background: PARTICIPANT_COLORS[winner.winner] || "#666" }} />
+                    <span className="text-xs font-black tracking-wider" style={{ color: PARTICIPANT_COLORS[winner.winner] || "#666" }}>
                       {winner.winner}
                     </span>
                     <span className="text-xs font-bold text-muted-foreground">({winner.score} pts)</span>
