@@ -1,16 +1,12 @@
-import { useState } from "react";
-import { Trophy, Calendar, BarChart2, Users, Wrench, Flag } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Trophy, Calendar, BarChart2, Users, Wrench, Flag, Loader2 } from "lucide-react";
 import StandingsTab from "@/components/StandingsTab";
 import CalendarTab from "@/components/CalendarTab";
 import GPAnalysisTab from "@/components/GPAnalysisTab";
 import ParticipantsTab from "@/components/ParticipantsTab";
 import DriversTab from "@/components/DriversTab";
 import TeamsTab from "@/components/TeamsTab";
-import { PARTICIPANT_TOTALS, GRAND_PRIX, GP_WINNERS } from "@/data/motogpData";
-
-const sorted = Object.entries(PARTICIPANT_TOTALS).sort(([, a], [, b]) => b - a);
-const leader = sorted[0];
-const completedGPs = Object.keys(GP_WINNERS).length;
+import { useMotogpData } from "@/contexts/DataContext";
 
 const tabs = [
   { id: "standings", label: "Clasificación", icon: Trophy },
@@ -23,13 +19,20 @@ const tabs = [
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState("standings");
+  const { PARTICIPANT_TOTALS, GRAND_PRIX, GP_WINNERS, loading } = useMotogpData();
+
+  const sorted = useMemo(
+    () => Object.entries(PARTICIPANT_TOTALS).sort(([, a], [, b]) => b - a),
+    [PARTICIPANT_TOTALS]
+  );
+  const leader = sorted[0] || ["—", 0];
+  const completedGPs = Object.keys(GP_WINNERS).length;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border sticky top-0 z-50 bg-background/95 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4">
-          {/* Top bar */}
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center animate-pulse-red">
@@ -43,6 +46,7 @@ export default function Index() {
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-4 text-xs">
+              {loading && <Loader2 className="w-4 h-4 animate-spin text-primary" />}
               <div className="text-center">
                 <div className="font-black text-accent text-lg">{completedGPs}</div>
                 <div className="text-muted-foreground uppercase tracking-wider">GPs</div>
@@ -54,16 +58,14 @@ export default function Index() {
               </div>
               <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="font-black text-primary text-lg">{leader[1].toLocaleString()}</div>
+                <div className="font-black text-primary text-lg">{Number(leader[1]).toLocaleString()}</div>
                 <div className="text-muted-foreground uppercase tracking-wider">Pts</div>
               </div>
             </div>
           </div>
 
-          {/* Red line */}
           <div className="red-line" />
 
-          {/* Tabs */}
           <nav className="flex overflow-x-auto scrollbar-hide py-0">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -99,7 +101,7 @@ export default function Index() {
                   {idx + 1}
                 </span>
                 <span className="text-sm font-black text-foreground">{name}</span>
-                <span className="text-xs text-accent font-bold">{pts.toLocaleString()}</span>
+                <span className="text-xs text-accent font-bold">{Number(pts).toLocaleString()}</span>
                 {idx < 2 && <span className="text-muted-foreground mx-1">·</span>}
               </div>
             ))}
@@ -124,6 +126,7 @@ export default function Index() {
       <footer className="border-t border-border mt-8 py-6 text-center text-xs text-muted-foreground">
         <p className="font-bold tracking-widest uppercase">Porra MotoGP 2025 · Temporada en curso</p>
         <p className="mt-1 opacity-60">{completedGPs} de {GRAND_PRIX.length} Grandes Premios completados</p>
+        {loading && <p className="mt-1 text-primary">Actualizando datos desde Google Sheets...</p>}
       </footer>
     </div>
   );

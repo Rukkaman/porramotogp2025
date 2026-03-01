@@ -1,12 +1,5 @@
 import { Trophy, TrendingUp, Award } from "lucide-react";
-import {
-  PARTICIPANTS,
-  PARTICIPANT_TOTALS,
-  PARTICIPANT_GP_SCORES,
-  GP_WIN_COUNT,
-  PARTICIPANT_COLORS,
-  GRAND_PRIX,
-} from "@/data/motogpData";
+import { useMotogpData } from "@/contexts/DataContext";
 import {
   BarChart,
   Bar,
@@ -19,11 +12,7 @@ import {
   Line,
   Cell,
 } from "recharts";
-import { useState } from "react";
-
-const sorted = [...PARTICIPANTS].sort(
-  (a, b) => PARTICIPANT_TOTALS[b] - PARTICIPANT_TOTALS[a]
-);
+import { useState, useMemo } from "react";
 
 const positionBadge = (pos: number) => {
   if (pos === 1) return "racing-badge-1";
@@ -33,25 +22,44 @@ const positionBadge = (pos: number) => {
 };
 
 export default function StandingsTab() {
-  const [activeParticipants, setActiveParticipants] = useState<string[]>(sorted.slice(0, 5));
+  const {
+    PARTICIPANTS,
+    PARTICIPANT_TOTALS,
+    PARTICIPANT_GP_SCORES,
+    GP_WIN_COUNT,
+    PARTICIPANT_COLORS,
+    GRAND_PRIX,
+  } = useMotogpData();
+
+  const sorted = useMemo(
+    () => [...PARTICIPANTS].sort((a, b) => (PARTICIPANT_TOTALS[b] || 0) - (PARTICIPANT_TOTALS[a] || 0)),
+    [PARTICIPANTS, PARTICIPANT_TOTALS]
+  );
+
+  const [activeParticipants, setActiveParticipants] = useState<string[]>([]);
+
+  // Initialize active participants once sorted is available
+  const effectiveActive = activeParticipants.length > 0 ? activeParticipants : sorted.slice(0, 5);
 
   const toggleParticipant = (p: string) => {
-    setActiveParticipants((prev) =>
-      prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]
-    );
+    const current = effectiveActive;
+    if (current.includes(p)) {
+      setActiveParticipants(current.filter((x) => x !== p));
+    } else {
+      setActiveParticipants([...current, p]);
+    }
   };
 
   const barData = sorted.map((p) => ({
     name: p,
-    puntos: PARTICIPANT_TOTALS[p],
+    puntos: PARTICIPANT_TOTALS[p] || 0,
     victorias: GP_WIN_COUNT[p] || 0,
-    fill: PARTICIPANT_COLORS[p],
+    fill: PARTICIPANT_COLORS[p] || "#666",
   }));
 
-  const lineData = GRAND_PRIX.slice(0, 20).map((gp, idx) => {
+  const lineData = GRAND_PRIX.slice(0, 22).map((gp, idx) => {
     const entry: Record<string, number | string> = { gp: gp.name };
-    activeParticipants.forEach((p) => {
-      // cumulative sum up to idx
+    effectiveActive.forEach((p) => {
       let sum = 0;
       for (let i = 0; i <= idx; i++) sum += PARTICIPANT_GP_SCORES[p]?.[i] || 0;
       entry[p] = sum;
@@ -61,7 +69,6 @@ export default function StandingsTab() {
 
   return (
     <div className="space-y-6">
-      {/* Title */}
       <div className="flex items-center gap-3 mb-2">
         <Trophy className="text-accent w-6 h-6" />
         <h2 className="text-xl font-bold text-foreground tracking-wider">CLASIFICACIÓN GENERAL</h2>
@@ -83,8 +90,8 @@ export default function StandingsTab() {
             <tbody>
               {sorted.map((participant, idx) => {
                 const pos = idx + 1;
-                const total = PARTICIPANT_TOTALS[participant];
-                const leader = PARTICIPANT_TOTALS[sorted[0]];
+                const total = PARTICIPANT_TOTALS[participant] || 0;
+                const leader = PARTICIPANT_TOTALS[sorted[0]] || 0;
                 return (
                   <tr
                     key={participant}
@@ -102,14 +109,14 @@ export default function StandingsTab() {
                       <div className="flex items-center gap-2">
                         <span
                           className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                          style={{ background: PARTICIPANT_COLORS[participant] }}
+                          style={{ background: PARTICIPANT_COLORS[participant] || "#666" }}
                         />
                         <span className="font-bold text-foreground tracking-wide">{participant}</span>
                         {pos === 1 && <Trophy className="w-3.5 h-3.5 text-accent" />}
                       </div>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <span className="font-black text-base" style={{ color: PARTICIPANT_COLORS[participant] }}>
+                      <span className="font-black text-base" style={{ color: PARTICIPANT_COLORS[participant] || "#666" }}>
                         {total.toLocaleString()}
                       </span>
                     </td>
@@ -133,19 +140,9 @@ export default function StandingsTab() {
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={barData} margin={{ top: 5, right: 10, left: 0, bottom: 60 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-            <XAxis
-              dataKey="name"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }}
-              angle={-45}
-              textAnchor="end"
-              interval={0}
-            />
+            <XAxis dataKey="name" tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 10 }} angle={-45} textAnchor="end" interval={0} />
             <YAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8 }}
-              labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }}
-              itemStyle={{ color: "hsl(var(--accent))" }}
-            />
+            <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8 }} labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }} itemStyle={{ color: "hsl(var(--accent))" }} />
             <Bar dataKey="puntos" name="Puntos" radius={[4, 4, 0, 0]}>
               {barData.map((entry, index) => (
                 <Cell key={index} fill={entry.fill} />
@@ -166,10 +163,10 @@ export default function StandingsTab() {
                 onClick={() => toggleParticipant(p)}
                 className="text-xs px-2 py-1 rounded-full font-semibold border transition-all"
                 style={{
-                  borderColor: PARTICIPANT_COLORS[p],
-                  background: activeParticipants.includes(p) ? PARTICIPANT_COLORS[p] : "transparent",
-                  color: activeParticipants.includes(p) ? "#000" : PARTICIPANT_COLORS[p],
-                  opacity: activeParticipants.includes(p) ? 1 : 0.5,
+                  borderColor: PARTICIPANT_COLORS[p] || "#666",
+                  background: effectiveActive.includes(p) ? PARTICIPANT_COLORS[p] || "#666" : "transparent",
+                  color: effectiveActive.includes(p) ? "#000" : PARTICIPANT_COLORS[p] || "#666",
+                  opacity: effectiveActive.includes(p) ? 1 : 0.5,
                 }}
               >
                 {p}
@@ -180,29 +177,11 @@ export default function StandingsTab() {
         <ResponsiveContainer width="100%" height={320}>
           <LineChart data={lineData}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-            <XAxis
-              dataKey="gp"
-              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 9 }}
-              angle={-45}
-              textAnchor="end"
-              height={60}
-              interval={0}
-            />
+            <XAxis dataKey="gp" tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 9 }} angle={-45} textAnchor="end" height={60} interval={0} />
             <YAxis tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 11 }} />
-            <Tooltip
-              contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8 }}
-              labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }}
-            />
-            {activeParticipants.map((p) => (
-              <Line
-                key={p}
-                type="monotone"
-                dataKey={p}
-                stroke={PARTICIPANT_COLORS[p]}
-                strokeWidth={2}
-                dot={false}
-                activeDot={{ r: 4 }}
-              />
+            <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8 }} labelStyle={{ color: "hsl(var(--foreground))", fontWeight: 700 }} />
+            {effectiveActive.map((p) => (
+              <Line key={p} type="monotone" dataKey={p} stroke={PARTICIPANT_COLORS[p] || "#666"} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
             ))}
           </LineChart>
         </ResponsiveContainer>
@@ -221,9 +200,9 @@ export default function StandingsTab() {
               <div
                 key={participant}
                 className="rounded-lg p-3 text-center border border-border/50"
-                style={{ borderLeftColor: PARTICIPANT_COLORS[participant], borderLeftWidth: 3 }}
+                style={{ borderLeftColor: PARTICIPANT_COLORS[participant] || "#666", borderLeftWidth: 3 }}
               >
-                <div className="text-2xl font-black" style={{ color: PARTICIPANT_COLORS[participant] }}>
+                <div className="text-2xl font-black" style={{ color: PARTICIPANT_COLORS[participant] || "#666" }}>
                   {wins}
                 </div>
                 <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-1">{participant}</div>
