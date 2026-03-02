@@ -8,7 +8,7 @@ export default function CalendarTab() {
     <div className="space-y-4">
       <div className="flex items-center gap-3 mb-2">
         <Calendar className="text-accent w-6 h-6" />
-        <h2 className="text-xl font-bold text-foreground tracking-wider">CALENDARIO 2025</h2>
+        <h2 className="text-xl font-bold text-foreground tracking-wider"><h2 className="text-xl font-bold text-foreground tracking-wider">CALENDARIO 2026</h2></h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

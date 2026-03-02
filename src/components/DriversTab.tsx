@@ -59,7 +59,7 @@ export default function DriversTab() {
     <div className="space-y-5">
       <div className="flex items-center gap-3 mb-2">
         <Users className="text-accent w-6 h-6" />
-        <h2 className="text-xl font-bold text-foreground tracking-wider">PILOTOS 2025</h2>
+        <h2 className="text-xl font-bold text-foreground tracking-wider"><h2 className="text-xl font-bold text-foreground tracking-wider">PILOTOS 2026</h2></h2>
       </div>
 
       <div className="flex gap-2 flex-wrap">

@@ -42,7 +42,7 @@ export default function Index() {
                 <h1 className="text-lg font-black tracking-wider text-foreground leading-none">
                   PORRA MOTOGP
                 </h1>
-                <p className="text-xs text-accent font-bold tracking-widest">2025 SEASON</p>
+                <p className="text-xs text-accent font-bold tracking-widest">2026 SEASON</p>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-4 text-xs">
@@ -124,7 +124,7 @@ export default function Index() {
 
       {/* Footer */}
       <footer className="border-t border-border mt-8 py-6 text-center text-xs text-muted-foreground">
-        <p className="font-bold tracking-widest uppercase">Porra MotoGP 2025 · Temporada en curso</p>
+        <p className="font-bold tracking-widest uppercase"><p className="font-bold tracking-widest uppercase">Porra MotoGP 2026 · Temporada en curso</p></p>
         <p className="mt-1 opacity-60">{completedGPs} de {GRAND_PRIX.length} Grandes Premios completados</p>
         {loading && <p className="mt-1 text-primary">Actualizando datos desde Google Sheets...</p>}
       </footer>

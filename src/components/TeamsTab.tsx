@@ -28,7 +28,7 @@ export default function TeamsTab() {
     <div className="space-y-5">
       <div className="flex items-center gap-3 mb-2">
         <Wrench className="text-accent w-6 h-6" />
-        <h2 className="text-xl font-bold text-foreground tracking-wider">EQUIPOS PARTICIPANTES 2025</h2>
+        <h2 className="text-xl font-bold text-foreground tracking-wider"><h2 className="text-xl font-bold text-foreground tracking-wider">EQUIPOS PARTICIPANTES 2026</h2></h2>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -59,7 +59,7 @@ export default function TeamsTab() {
                   <span className="text-2xl font-black" style={{ color }}>#{rank}</span>
                   <h3 className="text-2xl font-black text-foreground">{active}</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mt-1">Equipo seleccionado para la temporada 2025</p>
+                <p className="text-sm text-muted-foreground mt-1"><p className="text-sm text-muted-foreground mt-1">Equipo seleccionado para la temporada 2026</p></p>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-black" style={{ color }}>{total.toLocaleString()}</div>
