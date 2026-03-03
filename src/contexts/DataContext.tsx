@@ -34,7 +34,9 @@ export interface MotogpContextData {
   MOTOGP_PILOTS: { number: number; name: string; team: string; country: string }[];
   MOTOGP_PILOT_SCORES: Record<string, number[]>;
   MOTO2_PILOTS: { number: number; name: string; team: string; country: string }[];
+  MOTO2_PILOT_SCORES: Record<string, number[]>;
   MOTO3_PILOTS: { number: number; name: string; team: string; country: string }[];
+  MOTO3_PILOT_SCORES: Record<string, number[]>;
   GRAND_PRIX: typeof GRAND_PRIX;
   completedGPCount: number;
   // Static data pass-through
@@ -59,6 +61,16 @@ function buildContextFromSheet(sheet: SheetData): MotogpContextData {
   const motogpPilotScores: Record<string, number[]> = {};
   sheet.motogpPilots.forEach((p) => {
     motogpPilotScores[p.name] = p.scores;
+  });
+
+  const moto2PilotScores: Record<string, number[]> = {};
+  sheet.moto2Pilots.forEach((p) => {
+    moto2PilotScores[p.name] = p.scores;
+  });
+
+  const moto3PilotScores: Record<string, number[]> = {};
+  sheet.moto3Pilots.forEach((p) => {
+    moto3PilotScores[p.name] = p.scores;
   });
 
   const moto2Pilots = sheet.moto2Pilots.map((p) => {
@@ -91,16 +103,7 @@ function buildContextFromSheet(sheet: SheetData): MotogpContextData {
     // If CSV has GP names, we could update name, but keep static for location/flag
   }));
 
-  // Extend if CSV has more GPs than static
-  for (let i = grandPrix.length; i < sheet.gpHeaders.length; i++) {
-    grandPrix.push({
-      id: i + 1,
-      name: sheet.gpHeaders[i] || `GP ${i + 1}`,
-      date: "",
-      location: "",
-      flag: "🏁",
-    });
-  }
+  // Do NOT extend beyond static GRAND_PRIX length (20 GPs for 2026)
 
   return {
     loading: false,
@@ -114,7 +117,9 @@ function buildContextFromSheet(sheet: SheetData): MotogpContextData {
     MOTOGP_PILOTS: motogpPilots,
     MOTOGP_PILOT_SCORES: motogpPilotScores,
     MOTO2_PILOTS: moto2Pilots,
+    MOTO2_PILOT_SCORES: moto2PilotScores,
     MOTO3_PILOTS: moto3Pilots,
+    MOTO3_PILOT_SCORES: moto3PilotScores,
     GRAND_PRIX: grandPrix,
     completedGPCount: sheet.completedGPCount,
     PARTICIPANT_COLORS,
@@ -135,7 +140,9 @@ const FALLBACK: MotogpContextData = {
   MOTOGP_PILOTS: STATIC_MOTOGP_PILOTS,
   MOTOGP_PILOT_SCORES,
   MOTO2_PILOTS: STATIC_MOTO2_PILOTS,
+  MOTO2_PILOT_SCORES: Object.fromEntries(STATIC_MOTO2_PILOTS.map(p => [p.name, []])),
   MOTO3_PILOTS: STATIC_MOTO3_PILOTS,
+  MOTO3_PILOT_SCORES: Object.fromEntries(STATIC_MOTO3_PILOTS.map(p => [p.name, []])),
   GRAND_PRIX,
   completedGPCount: Object.keys(STATIC_GP_WINNERS).length,
   PARTICIPANT_COLORS,
