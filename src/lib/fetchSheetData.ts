@@ -83,15 +83,17 @@ function parseNum(val: string | undefined): number {
   const n = parseFloat(normalized);
   return isNaN(n) ? 0 : n;
 }
+
+function parsePilotRow(cols: string[]): PilotData | null {
   const cell = (cols[0] || "").trim();
   const match = cell.match(/^(\d+)\s+(.+)$/);
   if (!match) return null;
   const number = parseInt(match[1], 10);
   const name = match[2].trim();
-  const price = parseInt(cols[1], 10) || 0;
+  const price = parseNum(cols[1]);
   const scores: number[] = [];
   for (let i = 3; i < 3 + NUM_GPS; i++) {
-    scores.push(parseFloat(cols[i]) || 0);
+    scores.push(parseNum(cols[i]));
   }
   return { number, name, price, scores };
 }
