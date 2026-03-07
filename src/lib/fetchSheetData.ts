@@ -162,9 +162,9 @@ export function parseSheetData(rows: string[][]): SheetData {
       // GP scores
       const scores: number[] = [];
       for (let j = 3; j < 3 + NUM_GPS; j++) {
-        scores.push(parseInt(rows[i][j], 10) || 0);
+        scores.push(parseFloat(rows[i][j]) || 0);
       }
-      const total = parseInt(rows[i][3 + NUM_GPS], 10) || scores.reduce((a, b) => a + b, 0);
+      const total = parseFloat(rows[i][3 + NUM_GPS]) || scores.reduce((a, b) => a + b, 0);
 
       participantGPScores[name] = scores;
       participantTotals[name] = total;
@@ -175,7 +175,7 @@ export function parseSheetData(rows: string[][]): SheetData {
         const cumRow = rows[i + 1];
         const cum: number[] = [];
         for (let j = 3; j < 3 + NUM_GPS; j++) {
-          cum.push(parseInt(cumRow[j], 10) || 0);
+          cum.push(parseFloat(cumRow[j]) || 0);
         }
         participantCumulative[name] = cum;
       }
