@@ -157,7 +157,7 @@ export function useMotogpData() {
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["motogp-sheet-data"],
+    queryKey: ["motogp-sheet-data", "decimals-fix-v2"],
     queryFn: fetchSheetData,
     staleTime: 5 * 60 * 1000, // 5 min cache
     retry: 2,
