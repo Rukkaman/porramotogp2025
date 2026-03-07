@@ -75,16 +75,25 @@ export interface SheetData {
 
 const NUM_GPS = 22;
 
+/** Parse a number that may use European comma as decimal separator */
+function parseNum(val: string | undefined): number {
+  if (!val) return 0;
+  // Replace comma decimal separator with dot (e.g. "6,5" -> "6.5")
+  const normalized = val.trim().replace(",", ".");
+  const n = parseFloat(normalized);
+  return isNaN(n) ? 0 : n;
+}
+
 function parsePilotRow(cols: string[]): PilotData | null {
   const cell = (cols[0] || "").trim();
   const match = cell.match(/^(\d+)\s+(.+)$/);
   if (!match) return null;
   const number = parseInt(match[1], 10);
   const name = match[2].trim();
-  const price = parseInt(cols[1], 10) || 0;
+  const price = parseNum(cols[1]);
   const scores: number[] = [];
   for (let i = 3; i < 3 + NUM_GPS; i++) {
-    scores.push(parseFloat(cols[i]) || 0);
+    scores.push(parseNum(cols[i]));
   }
   return { number, name, price, scores };
 }
@@ -162,9 +171,9 @@ export function parseSheetData(rows: string[][]): SheetData {
       // GP scores
       const scores: number[] = [];
       for (let j = 3; j < 3 + NUM_GPS; j++) {
-        scores.push(parseFloat(rows[i][j]) || 0);
+        scores.push(parseNum(rows[i][j]));
       }
-      const total = parseFloat(rows[i][3 + NUM_GPS]) || scores.reduce((a, b) => a + b, 0);
+      const total = parseNum(rows[i][3 + NUM_GPS]) || scores.reduce((a, b) => a + b, 0);
 
       participantGPScores[name] = scores;
       participantTotals[name] = total;
@@ -175,7 +184,7 @@ export function parseSheetData(rows: string[][]): SheetData {
         const cumRow = rows[i + 1];
         const cum: number[] = [];
         for (let j = 3; j < 3 + NUM_GPS; j++) {
-          cum.push(parseFloat(cumRow[j]) || 0);
+          cum.push(parseNum(cumRow[j]));
         }
         participantCumulative[name] = cum;
       }
