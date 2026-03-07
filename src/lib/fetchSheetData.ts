@@ -79,7 +79,7 @@ const NUM_GPS = 22;
 function parseNum(val: string | undefined): number {
   if (!val) return 0;
   // Replace comma decimal separator with dot (e.g. "6,5" -> "6.5")
-  const normalized = val.trim().replace(",", ".");
+  const normalized = val.trim().replace(/\./g, "").replace(/,/g, ".").replace(/[^0-9.-]/g, "");
   const n = parseFloat(normalized);
   return isNaN(n) ? 0 : n;
 }
