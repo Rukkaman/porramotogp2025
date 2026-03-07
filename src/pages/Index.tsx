@@ -58,7 +58,7 @@ export default function Index() {
               </div>
               <div className="h-8 w-px bg-border" />
               <div className="text-center">
-                <div className="font-black text-primary text-lg">{Number(leader[1]).toLocaleString()}</div>
+                <div className="font-black text-primary text-lg">{Number(leader[1]).toFixed(2)}</div>
                 <div className="text-muted-foreground uppercase tracking-wider">Pts</div>
               </div>
             </div>
@@ -101,7 +101,7 @@ export default function Index() {
                   {idx + 1}
                 </span>
                 <span className="text-sm font-black text-foreground">{name}</span>
-                <span className="text-xs text-accent font-bold">{Number(pts).toLocaleString()}</span>
+                <span className="text-xs text-accent font-bold">{Number(pts).toFixed(2)}</span>
                 {idx < 2 && <span className="text-muted-foreground mx-1">·</span>}
               </div>
             ))}

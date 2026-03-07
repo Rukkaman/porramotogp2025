@@ -117,14 +117,14 @@ export default function StandingsTab() {
                     </td>
                     <td className="px-4 py-3 text-right">
                       <span className="font-black text-base" style={{ color: PARTICIPANT_COLORS[participant] || "#666" }}>
-                        {total.toLocaleString()}
+                        {total.toFixed(2)}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right hidden md:table-cell">
                       <span className="text-accent font-bold">{GP_WIN_COUNT[participant] || 0}</span>
                     </td>
                     <td className="px-4 py-3 text-right hidden lg:table-cell text-muted-foreground">
-                      {pos === 1 ? "—" : `-${(leader - total).toLocaleString()}`}
+                      {pos === 1 ? "—" : `-${(leader - total).toFixed(2)}`}
                     </td>
                   </tr>
                 );

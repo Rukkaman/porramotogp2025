@@ -62,7 +62,7 @@ export default function TeamsTab() {
                 <p className="text-sm text-muted-foreground mt-1"><p className="text-sm text-muted-foreground mt-1">Equipo seleccionado para la temporada 2026</p></p>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-black" style={{ color }}>{total.toLocaleString()}</div>
+                <div className="text-3xl font-black" style={{ color }}>{total.toFixed(2)}</div>
                 <div className="text-xs text-muted-foreground uppercase tracking-widest">pts porra</div>
               </div>
             </div>

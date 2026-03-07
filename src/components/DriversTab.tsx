@@ -114,7 +114,7 @@ export default function DriversTab() {
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <div className="text-lg font-black" style={{ color: teamColor }}>{pilot.total}</div>
+                  <div className="text-lg font-black" style={{ color: teamColor }}>{pilot.total.toFixed(2)}</div>
                   <div className="text-xs text-muted-foreground">pts porra</div>
                 </div>
               </div>
@@ -134,7 +134,7 @@ export default function DriversTab() {
             </div>
             <div>
               <h3 className="font-black text-lg text-foreground">{selected.name}</h3>
-              <p className="text-sm text-muted-foreground">{selected.country} · {selected.team} · Total: <span className="text-accent font-bold">{selected.total} pts porra</span></p>
+              <p className="text-sm text-muted-foreground">{selected.country} · {selected.team} · Total: <span className="text-accent font-bold">{selected.total.toFixed(2)} pts porra</span></p>
             </div>
           </div>
           <ResponsiveContainer width="100%" height={220}>

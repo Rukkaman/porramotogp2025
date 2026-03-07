@@ -31,7 +31,7 @@ export default function ParticipantsTab() {
   const total = PARTICIPANT_TOTALS[active] || 0;
   const color = PARTICIPANT_COLORS[active] || "#666";
   const wins = Object.values(GP_WINNERS).filter((v) => v.winner === active).length;
-  const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+  const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
   const best = scores.length ? Math.max(...scores) : 0;
   const bestGPIdx = scores.indexOf(best);
   const bestGP = GRAND_PRIX[bestGPIdx]?.name || "-";
@@ -75,9 +75,9 @@ export default function ParticipantsTab() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: "Puntos Totales", value: total.toLocaleString(), accent: true },
-          { label: "Media / GP", value: avg },
-          { label: "Mejor GP", value: `${best} pts`, sub: bestGP },
+          { label: "Puntos Totales", value: total.toFixed(2), accent: true },
+          { label: "Media / GP", value: avg.toFixed(2) },
+          { label: "Mejor GP", value: `${best.toFixed(2)} pts`, sub: bestGP },
           { label: "Victorias GP", value: wins },
         ].map((stat) => (
           <div key={stat.label} className="racing-card p-4 text-center">
