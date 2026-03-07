@@ -75,7 +75,14 @@ export interface SheetData {
 
 const NUM_GPS = 22;
 
-function parsePilotRow(cols: string[]): PilotData | null {
+/** Parse a number that may use European comma as decimal separator */
+function parseNum(val: string | undefined): number {
+  if (!val) return 0;
+  // Replace comma decimal separator with dot (e.g. "6,5" -> "6.5")
+  const normalized = val.trim().replace(",", ".");
+  const n = parseFloat(normalized);
+  return isNaN(n) ? 0 : n;
+}
   const cell = (cols[0] || "").trim();
   const match = cell.match(/^(\d+)\s+(.+)$/);
   if (!match) return null;
