@@ -31,7 +31,7 @@ export default function ParticipantsTab() {
   const total = PARTICIPANT_TOTALS[active] || 0;
   const color = PARTICIPANT_COLORS[active] || "#666";
   const wins = Object.values(GP_WINNERS).filter((v) => v.winner === active).length;
-  const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+  const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
   const best = scores.length ? Math.max(...scores) : 0;
   const bestGPIdx = scores.indexOf(best);
   const bestGP = GRAND_PRIX[bestGPIdx]?.name || "-";
