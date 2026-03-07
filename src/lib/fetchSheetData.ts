@@ -84,7 +84,7 @@ function parsePilotRow(cols: string[]): PilotData | null {
   const price = parseInt(cols[1], 10) || 0;
   const scores: number[] = [];
   for (let i = 3; i < 3 + NUM_GPS; i++) {
-    scores.push(parseInt(cols[i], 10) || 0);
+    scores.push(parseFloat(cols[i]) || 0);
   }
   return { number, name, price, scores };
 }
