@@ -75,9 +75,9 @@ export default function ParticipantsTab() {
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          { label: "Puntos Totales", value: total.toLocaleString(), accent: true },
-          { label: "Media / GP", value: avg },
-          { label: "Mejor GP", value: `${best} pts`, sub: bestGP },
+          { label: "Puntos Totales", value: total.toFixed(2), accent: true },
+          { label: "Media / GP", value: avg.toFixed(2) },
+          { label: "Mejor GP", value: `${best.toFixed(2)} pts`, sub: bestGP },
           { label: "Victorias GP", value: wins },
         ].map((stat) => (
           <div key={stat.label} className="racing-card p-4 text-center">

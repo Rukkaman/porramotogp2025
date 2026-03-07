@@ -71,7 +71,7 @@ export default function GPAnalysisTab() {
               <div className="text-xl font-black tracking-wide" style={{ color: PARTICIPANT_COLORS[winner.winner] || "#666" }}>
                 {winner.winner}
               </div>
-              <div className="text-2xl font-black text-accent mt-1">{winner.score} pts</div>
+              <div className="text-2xl font-black text-accent mt-1">{winner.score.toFixed(2)} pts</div>
             </div>
           )}
         </div>
@@ -104,7 +104,7 @@ export default function GPAnalysisTab() {
             >
               <div className="text-2xl font-black">{idx + 1}º</div>
               <div className="text-lg font-black mt-1">{entry.name}</div>
-              <div className="text-xl font-black mt-1">{entry.puntos} pts</div>
+              <div className="text-xl font-black mt-1">{entry.puntos.toFixed(2)} pts</div>
             </div>
           ))}
         </div>
